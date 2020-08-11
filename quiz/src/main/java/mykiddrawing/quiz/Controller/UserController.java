@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,11 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/{user_id}")
     public ResponseEntity < User > getUserById(
-        @PathVariable(value = "id") Long user_id) throws ResourceNotFoundException {
-        User user = userRepository.findById(user_id)
-            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_id));
+        @PathVariable(value = "user_id") Long user_user_id) throws ResourceNotFoundException {
+        User user = userRepository.findById(user_user_id)
+            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_user_id));
         return ResponseEntity.ok().body(user);
     }
 
@@ -51,12 +52,12 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/users/{user_id}")
     public ResponseEntity < User > updateUser(
-        @PathVariable(value = "id") Long user_id,
+        @PathVariable(value = "user_id") Long user_user_id,
         @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
-        User user = userRepository.findById(user_id)
-            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_id));
+        User user = userRepository.findById(user_user_id)
+            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_user_id));
         user.setUser_name(userDetails.getUser_name());
         user.setUser_mail(userDetails.getUser_mail());
         user.setUser_address(userDetails.getUser_address());
@@ -65,11 +66,11 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/users/{user_id}")
     public Map < String, Boolean > deleteUser(
-        @PathVariable(value = "id") Long user_id) throws ResourceNotFoundException {
-        User user = userRepository.findById(user_id)
-            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_id));
+        @PathVariable(value = "user_id") Long user_user_id) throws mykiddrawing.quiz.exception.ResourceNotFoundException {
+        User user = userRepository.findById(user_user_id)
+            .orElseThrow(()-> new ResourceNotFoundException("User not found :: " + user_user_id));
 
         userRepository.delete(user);
         Map < String, Boolean > response = new HashMap < > ();

@@ -1,17 +1,11 @@
 package mykiddrawing.quiz.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import javax.validation.constraints.Size;
 
 
@@ -27,13 +21,13 @@ public class User extends AuditModel  {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 	
 	@NotNull
 	@Column(name="user_name")
 	@Size(max=50)
 	private String user_name;
-	
+
 	@NotNull
 	@Email
 	@Column(name="user_mail",unique=true)
@@ -41,6 +35,35 @@ public class User extends AuditModel  {
 	private String user_mail;
 	
 	
+	public String getUser_mail() {
+		return user_mail;
+	}
+
+
+	public void setUser_mail(String user_mail) {
+		this.user_mail = user_mail;
+	}
+
+
+	public String getUser_address() {
+		return user_address;
+	}
+
+
+	public void setUser_address(String user_address) {
+		this.user_address = user_address;
+	}
+
+
+	public String getUser_gender() {
+		return user_gender;
+	}
+
+
+	public void setUser_gender(String user_gender) {
+		this.user_gender = user_gender;
+	}
+
 	@Column(name="user_address")
 	@Size(max=50)
 	private String user_address;
@@ -50,14 +73,6 @@ public class User extends AuditModel  {
 	@Size(max=50)
 	private String user_gender;
 	
-
-
-	@OneToMany(mappedBy = "user", cascade = {
-        CascadeType.ALL
-    })
-    private List<Result> results;
-	 
-
 	 public User()
 	 {
 		 
@@ -74,22 +89,16 @@ public class User extends AuditModel  {
 
 
 
-    public List<Result> getResults() {
-		return results;
+
+	public long getId() {
+		return id;
 	}
 
 
-	public void setResults(List<Result> results) {
-		this.results = results;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    } 
 
 	public String getUser_name() {
 		return user_name;
@@ -98,31 +107,6 @@ public class User extends AuditModel  {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-
-	public String getUser_mail() {
-		return user_mail;
-	}
-
-	public void setUser_mail(String user_mail) {
-		this.user_mail = user_mail;
-	}
-
-	public String getUser_address() {
-		return user_address;
-	}
-
-	public void setUser_address(String user_address) {
-		this.user_address = user_address;
-	}
-
-	public String getUser_gender() {
-		return user_gender;
-	}
-
-	public void setUser_gender(String user_gender) {
-		this.user_gender = user_gender;
-	}
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
